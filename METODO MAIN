@@ -1,0 +1,24 @@
+package javaapplication1;
+import java.util.Formatter;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+public class VOTACIONES {    
+     static votaciones1 obj = new votaciones1();   
+    public static void main(String[]args){     
+       obj.login();
+    } 
+    public void Reingreso(){
+      obj.login();
+    }
+public void inicio(){ 
+   obj.administrador();
+}
+public void registrador(){
+    obj.administrador();
+}
+public void salir(){
+    
+}
+       
+}
+  
