@@ -1,0 +1,282 @@
+package javaapplication1;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Formatter;
+import java.io.*;
+import java.nio.file.Files;
+import java.lang.Object;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
+import java.io.FileReader;
+import java.io.FileWriter;
+public class votaciones1{
+    VOTACIONES OP = new VOTACIONES();
+          private Formatter x; 
+          String contraa;
+          String admin = "admin";
+          String p , u;      
+          String edad,direccion,DPI,correo;
+          String variable;
+          Scanner sacan = new Scanner(System.in);
+           File fil = new File("datos");
+    public void login(){
+     File archivo = new File("contraseña_admin.txt");
+     boolean adminPass = archivo.exists();
+     if (!adminPass){
+         System.out.println("configuracion de contraseña inicial para administrador");
+         System.out.println("ingrese contraseña nueva para administrador");
+         String adminPasss = sacan.nextLine();
+           try{
+             FileWriter writer = new FileWriter(archivo);
+             writer.write(adminPasss);
+             writer.close();
+               System.out.println("La contraseña a sido configurada con exito");
+       }
+       catch(Exception ex){
+           System.out.println("A courrido un error al guardar la contraseña");
+       }    
+            
+     }
+     else{
+         int opcion = 0; 
+      System.out.println("1. Administrador");
+        System.out.println("2. Registrador");
+        System.out.println("3. votante");
+        System.out.println("4. Auditor");
+         System.out.println("5 Salir");
+        System.out.println("6. ingrese un opcion");
+         
+          opcion = sacan.nextInt();
+          switch (opcion){
+              case 1:
+                  
+               try{
+                 BufferedReader leer = new BufferedReader(new FileReader(archivo));
+                 String Bcontraseña = leer.readLine();
+                 leer.close();
+                 System.out.println("ingrese contraseña del admin");
+                 String IngContra = sacan.next();
+                 if (IngContra.equals(Bcontraseña)){
+                     System.out.println("bienvenido al sistema");
+                     OP.inicio();                    
+                 }
+                 else {
+                     System.out.println("Contraseña incorrecta");
+                     OP.Reingreso();
+                 }
+             }
+             catch(Exception ex){
+                 System.out.println("contraseña erronea");
+                 OP.Reingreso();
+                 break;
+                 }
+              case 2:
+                   try{
+                 BufferedReader leer = new BufferedReader(new FileReader(fil));
+                 String Bcontraseña = leer.readLine();
+                 leer.close();
+                 System.out.println("ingrese contraseña del registrador");
+                 String IngContra = sacan.next();
+                 if (IngContra.equals(Bcontraseña)){
+                     System.out.println("bienvenido al sistema");
+                                      
+                 }
+                 else {
+                     System.out.println("Contraseña incorrecta");
+                     OP.Reingreso();
+                 }
+             }
+             catch(Exception ex){
+                 System.out.println("contraseña erronea");
+                 OP.Reingreso();
+                 break;
+                 }
+              case 3:
+                   try{
+                 BufferedReader leer = new BufferedReader(new FileReader(fil));
+                 String Bcontraseña = leer.readLine();
+                 leer.close();
+                       System.out.println("ingrse su correo electronico");
+                       String ing =sacan.next();
+                 System.out.println("ingrese su contraseña");
+                 String IngContra = sacan.nextLine();
+                 if (IngContra.equals(Bcontraseña)&&ing.equals(Bcontraseña)){
+                     System.out.println("bienvenido al sistema");
+                     OP.inicio();                    
+                 }
+                 else {
+                     System.out.println("Contraseña incorrecta");
+                     OP.Reingreso();
+                 }
+             }
+             catch(Exception ex){
+                 System.out.println("contraseña erronea");
+                 OP.Reingreso();
+                 break;
+                 }
+              case 4:
+              
+              case 5:
+                 
+          }
+            
+    
+
+     }
+     
+       
+    }  
+   
+    public void administrador(){
+      int opcion = 0; 
+      System.out.println("1. Escribir registro");
+        System.out.println("2. Agregar registro");
+        System.out.println("3. Leer registros");
+        System.out.println("4. Actualizar registro");
+        System.out.println("5. Eliminar registro");
+        System.out.println("6.salir");
+        System.out.print("Seleccione operacion a realizar: ");
+        opcion = sacan.nextInt();
+        
+        switch (opcion) {
+            case 1: 
+                    try {
+                        System.out.println("ingreso nuevo registro");                       
+                        DPI =JOptionPane.showInputDialog("ingrese DPI");                        
+                        direccion = JOptionPane.showInputDialog("ingrese direccion");
+                        edad = JOptionPane.showInputDialog("ingrese edad"); 
+                        correo=JOptionPane.showInputDialog("ingrese correo");
+                        FileWriter fw = new FileWriter(fil,true);
+                        BufferedWriter bw = new BufferedWriter(fw);                                                               
+                        bw.write( "|DPI| "+DPI +"\n|direccion|"+direccion+"\n|edad|"+edad+"\n|correo"+correo);
+                        bw.close();
+                        System.out.println("jjj"+DPI);
+                        OP.inicio();
+                    } catch (IOException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+            case 2:
+                    try {
+                        FileWriter fw = new FileWriter(fil, true);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                         DPI =JOptionPane.showInputDialog("ingrese DPI");                        
+                        direccion = JOptionPane.showInputDialog("ingrese direccion");
+                        edad = JOptionPane.showInputDialog("ingrese edad"); 
+                        correo=JOptionPane.showInputDialog("ingrese correo");
+                        
+                        bw.write( "|DPI| "+DPI +"\n|direccion|"+direccion+"\n|edad|"+edad+"\n|correo"+correo);
+                        bw.close();
+                         OP.inicio();
+                    } catch (IOException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+
+            case 3: 
+                    try {
+                        FileReader fr = new FileReader(fil);
+                        BufferedReader br = new BufferedReader(fr);
+                        String linea = "";
+                        while((linea = br.readLine()) != null) {
+                            System.out.println(linea);
+                        } 
+                        br.close();
+                           OP.inicio();
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                    Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+            case 4:
+                    try {
+                        FileReader fr = new FileReader(fil);
+                        BufferedReader br = new BufferedReader(fr);
+                        
+                        File fc = new File("archivo_texto_copia.txt");
+                        FileWriter fw = new FileWriter(fc);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        
+                        String linea = "";
+                        
+                        while((linea = br.readLine()) != null) {
+                            String [] datos = linea.split("\\|");
+                            if (datos[0].compareTo("123456") == 0) {
+                                linea = "123456|Estela|González|F|21|Ingeniería";
+                            }
+                            
+                            bw.write(linea+"\n");
+                        } 
+                        
+                        bw.close();
+                        br.close();
+                        
+                        Files.move(fc.toPath(), fil.toPath(), REPLACE_EXISTING);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                    Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
+                    break;
+            case 5: 
+                    try {
+                        FileReader fr = new FileReader(fil);
+                        BufferedReader br = new BufferedReader(fr);
+                        
+                        File fc = new File("archivo_texto_copia.txt");
+                        FileWriter fw = new FileWriter(fc);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        
+                        String linea = "";
+                        
+                        while((linea = br.readLine()) != null) {
+                            String [] datos = linea.split("\\|");
+                            if (datos[0].compareTo("123456") != 0) {
+                                bw.write(linea+"\n");
+                            }
+                        } 
+                        
+                        bw.close();
+                        br.close();
+                        
+                        Files.move(fc.toPath(), fil.toPath(), REPLACE_EXISTING);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                    Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
+                    break;
+            case 6:
+                OP.salir();
+            default: System.out.println("Ingrese una opción válida.");
+        }
+    
+    
+        
+    }
+    public void registrador(){
+         try {
+                        System.out.println("ingreso nuevo registro");                       
+                        DPI =JOptionPane.showInputDialog("ingrese DPI");                        
+                        direccion = JOptionPane.showInputDialog("ingrese direccion");
+                        edad = JOptionPane.showInputDialog("ingrese edad"); 
+                        correo=JOptionPane.showInputDialog("ingrese correo");
+                        FileWriter fw = new FileWriter(fil,true);
+                        BufferedWriter bw = new BufferedWriter(fw);                                                               
+                        bw.write( "|DPI| "+DPI +"\n|direccion|"+direccion+"\n|edad|"+edad+"\n|correo"+correo);
+                        bw.close();
+                        OP.inicio();
+                    } catch (IOException ex) {
+                        Logger.getLogger(votaciones1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+    }
+    public void votante(){
+        
+    }         
+}
+    
+
